@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Parallel Execution') {
+            steps {
+                parallel {
+                    build: {
+                        sh 'echo "Inside the Build stage"'
+                        sh 'mvn clean'
+                    },
+                    test: {
+                        sh 'echo "Inside the Test stage"'
+                        sh 'mvn test'
+                    },
+                    deploy: {
+                        sh 'echo "Inside the Deploy stage"'
+                        sh 'mvn package'
+                    }
+                }
+            }
+        }
+        stage('Consolidate Results') {
+            steps {
+                input('Do you want to capture the results?')
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archive 'target/*.jar'
+            }
+        }
+    }
+}
