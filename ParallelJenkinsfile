@@ -7,11 +7,11 @@ pipeline {
                     build: {
                         sh 'echo "Inside the Build stage"'
                         sh 'mvn clean'
-                    },
+                    }
                     test: {
                         sh 'echo "Inside the Test stage"'
                         sh 'mvn test'
-                    },
+                    }
                     deploy: {
                         sh 'echo "Inside the Deploy stage"'
                         sh 'mvn package'
