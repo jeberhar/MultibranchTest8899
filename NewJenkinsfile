@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'echo "Inside the Build stage"'
+                sh 'mvn -f /tmp/mvnBuild/pom.xml clean'
+            }
+        }
+        stage('Test') { 
+            steps {
+                sh 'echo "Inside the Test stage"'
+                sh 'mvn -f /tmp/mvnBuild/pom.xml test'
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                sh 'echo "Inside the Deploy stage"'
+                sh 'mvn -f /tmp/mvnBuild/pom.xml package'
+            }
+        }
+    }
+}
