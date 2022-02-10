@@ -1,18 +1,22 @@
 pipeline {
-    agent any
+    agent none
     stages {
-        stage('Parallel Execution') {
-            steps {
-                parallel {
-                    build: {
+        stage('Parallel execution') {
+            parallel {
+                stage('Build') {
+                    steps {
                         sh 'echo "Inside the Build stage"'
                         sh 'mvn clean'
                     }
-                    test: {
+                }
+                stage('Test') {
+                    steps {
                         sh 'echo "Inside the Test stage"'
                         sh 'mvn test'
                     }
-                    deploy: {
+                }
+                stage('Deploy') {
+                    steps {
                         sh 'echo "Inside the Deploy stage"'
                         sh 'mvn package'
                     }
